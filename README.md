@@ -23,11 +23,8 @@ To run the application:
 2. Open a browser window and navigate to the index.html file in your application's directory.
 
 ## Tools / Techniques
-- Object-Oriented JavaScript
-- constructor functions to create multiple Enemy instances
-- prototypal inheritance
-- HTML5 Canvas API
-- resource loading via immediately-invoked function expressions (IIFE)
+- Object-Oriented based JavaScript
+- prototype in JavaScript
 
 #### Students should use this rubric for self-checking their submission:
 https://review.udacity.com/#!/rubrics/15/view
