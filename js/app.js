@@ -25,7 +25,8 @@ Enemy.prototype.update = function(dt) {
     }
 
     // Check for collision with enemies or barrier-walls
-    checkCollision(this);
+    var enemyObjo = new Enemy();
+    enemyObjo.checkCollision(this);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -51,7 +52,8 @@ Player.prototype.update = function() {
 // Display score
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    displayScoreLevel(score, gameLevel);
+    var playerObj = new Player();
+    playerObj.displayScoreLevel(score, gameLevel);
 
 };
 
@@ -72,7 +74,7 @@ Player.prototype.handleInput = function(keyPress) {
 };
 
 // Function to display player's score
-var displayScoreLevel = function(aScore, aLevel) {
+ Player.prototype.displayScoreLevel = function(aScore, aLevel) {
     var canvas = document.getElementsByTagName('canvas');
     var firstCanvasTag = canvas[0];
 
@@ -82,7 +84,7 @@ var displayScoreLevel = function(aScore, aLevel) {
     document.body.insertBefore(scoreLevelDiv, firstCanvasTag[0]);
 };
 
-var checkCollision = function(anEnemy) {
+Enemy.prototype.checkCollision = function(anEnemy) {
     // check for collision between enemy and player
     if (
         player.y + 131 >= anEnemy.y + 90
@@ -97,7 +99,7 @@ var checkCollision = function(anEnemy) {
     // check for player reaching top of canvas and winning the game
     // if player wins, add 1 to the score and level
     // pass score as an argument to the increaseDifficulty function
-    if (player.y + 63 <= 0) {        
+    if (player.y + 63 <= 0) {
         player.x = 202.5;
         player.y = 383;
         console.log('you made it!');
@@ -108,7 +110,8 @@ var checkCollision = function(anEnemy) {
         score += 1;
         gameLevel += 1;
         console.log('current score: ' + score + ', current level: ' + gameLevel);
-        increaseDifficulty(score);
+        var enmObj = new Enemy();
+        enmObj.increaseDifficulty(score);
 
     }
 
@@ -126,14 +129,14 @@ var checkCollision = function(anEnemy) {
 };
 
 // Increase number of enemies on screen based on player's score
-var increaseDifficulty = function(numEnemies) {
+ Enemy.prototype.increaseDifficulty = function(numEnemies) {
     // remove all previous enemies on canvas
     allEnemies.length = 0;
 
     // load new set of enemies
     for (var i = 0; i <= numEnemies; i++) {
         var enemy = new Enemy(0, Math.random() * 184 + 50, Math.random() * 256);
-        
+
         allEnemies.push(enemy);
     }
 };
