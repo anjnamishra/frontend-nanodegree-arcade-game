@@ -1,3 +1,4 @@
+'use strict';
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
@@ -25,8 +26,7 @@ Enemy.prototype.update = function(dt) {
     }
 
     // Check for collision with enemies or barrier-walls
-    var enemyObjo = new Enemy();
-    enemyObjo.checkCollision(this);
+    this.checkCollision(this);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -52,8 +52,7 @@ Player.prototype.update = function() {
 // Display score
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    var playerObj = new Player();
-    playerObj.displayScoreLevel(score, gameLevel);
+    this.displayScoreLevel(score, gameLevel);
 
 };
 
@@ -110,9 +109,8 @@ Enemy.prototype.checkCollision = function(anEnemy) {
         score += 1;
         gameLevel += 1;
         console.log('current score: ' + score + ', current level: ' + gameLevel);
-        var enmObj = new Enemy();
-        enmObj.increaseDifficulty(score);
-
+        //Code review comment ask it to define in global namespace so doing it.
+        increaseDifficulty(score);
     }
 
     // check if player runs into left, bottom, or right canvas walls
@@ -129,7 +127,7 @@ Enemy.prototype.checkCollision = function(anEnemy) {
 };
 
 // Increase number of enemies on screen based on player's score
- Enemy.prototype.increaseDifficulty = function(numEnemies) {
+ var increaseDifficulty = function(numEnemies) {
     // remove all previous enemies on canvas
     allEnemies.length = 0;
 
